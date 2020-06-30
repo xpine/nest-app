@@ -20,6 +20,10 @@ export class MenuService {
     });
   }
 
+  findByIds(ids) {
+    return this.menuRepository.findByIds(ids);
+  }
+
   deleteMenu(id) {
     const repository = this.menuManager.getTreeRepository(Menu);
     return repository.softDelete(id);
@@ -70,7 +74,6 @@ export class MenuService {
   }
 
   sort(menus: Menu[]): Menu[] {
-    console.log(menus, 111);
     menus.sort((a, b) => a.sort - b.sort);
     menus.forEach(menu => {
       if (menu.children && menu.children.length) {

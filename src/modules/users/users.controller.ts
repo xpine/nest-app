@@ -17,17 +17,26 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { PageDto } from '../../common/dto/page.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiCode } from 'src/common/enum/api-code.num';
-
+import { RoleService } from '../role/role.service';
+@UseGuards(AuthGuard('jwt'))
 @Controller({
   path: 'user',
 })
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private roleService: RoleService,
+  ) {}
   // 获取当前登录账号的用户信息
   @Get('/')
   async get(@Request() req, @Response() res) {
+    console.log(req.user);
     const { id } = req.user;
     const user = await this.userService.findOne(id);
+    if (user.role) {
+      const role = await this.roleService.findById(user.role.id);
+      user.role = role;
+    }
     res.status(HttpStatus.OK).json({ code: ApiCode.SUCCESS, data: user });
   }
 
@@ -61,7 +70,10 @@ export class UsersController {
   @Post('/')
   async create(@Body() createUserDto: CreateUserDto, @Response() res) {
     const user = await this.userService.create(createUserDto);
-    res.status(HttpStatus.OK).json(user);
+    res.status(HttpStatus.OK).json({
+      code: ApiCode.SUCCESS,
+      data: user,
+    });
   }
 
   // 编辑用户账号
@@ -72,7 +84,10 @@ export class UsersController {
     @Response() res,
   ) {
     const user = await this.userService.update(id, createUserDto);
-    res.status(HttpStatus.OK).json(user);
+    res.status(HttpStatus.OK).json({
+      code: ApiCode.SUCCESS,
+      data: user,
+    });
   }
 
   // 删除用户账号

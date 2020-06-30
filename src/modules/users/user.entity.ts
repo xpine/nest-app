@@ -5,8 +5,8 @@ import {
   DeleteDateColumn,
   UpdateDateColumn,
   CreateDateColumn,
-  OneToOne,
   JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 import { Role } from '../role/role.entity';
 
@@ -56,7 +56,7 @@ export class User {
   })
   deleteTime: number;
 
-  @OneToOne(type => Role)
+  @ManyToOne(type => Role)
   @JoinColumn()
   role: Role;
 }

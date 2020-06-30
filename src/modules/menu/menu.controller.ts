@@ -28,8 +28,8 @@ export class MenuController {
   async getMenuTree(@Body() body, @Response() res) {
     const menus = await this.service.getMenuTree();
     res.status(HttpStatus.OK).json({
-      code:ApiCode.SUCCESS,
-      data:menus
+      code: ApiCode.SUCCESS,
+      data: menus,
     });
   }
 
@@ -43,7 +43,10 @@ export class MenuController {
   @Post()
   async createMenu(@Body() createMenuDto: CreateMenuDto, @Response() res) {
     const menu = await this.service.create(createMenuDto);
-    res.status(HttpStatus.OK).json(menu);
+    res.status(HttpStatus.OK).json({
+      code: ApiCode.SUCCESS,
+      data: menu,
+    });
   }
 
   @Get('/:id')

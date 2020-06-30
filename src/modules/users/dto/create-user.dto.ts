@@ -11,5 +11,5 @@ export class CreateUserDto {
   username: string;
   @IsNotEmpty({ message: '密码不能为空' })
   password: string;
-  roldId?: string;
+  roleId?: string;
 }
