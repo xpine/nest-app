@@ -27,6 +27,16 @@ export class UsersController {
     private readonly userService: UsersService,
     private roleService: RoleService,
   ) {}
+
+  @Get('/all')
+  async getAllUsers(@Response() res, @Query() dto: CreateUserDto & any) {
+    const users = await this.userService.find(dto);
+    res.status(HttpStatus.OK).json({
+      code: ApiCode.SUCCESS,
+      data: users,
+    });
+  }
+
   // 获取当前登录账号的用户信息
   @Get('/')
   async get(@Request() req, @Response() res) {

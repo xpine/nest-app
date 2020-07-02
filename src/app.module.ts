@@ -17,6 +17,8 @@ import { BannerModule } from './modules/banner/banner.module';
 import { Banner } from './modules/banner/banner.entity';
 import { RoleModule } from './modules/role/role.module';
 import { Role } from './modules/role/role.entity';
+import { ProjectModule } from './modules/project/project.module';
+import { Project } from './modules/project/project.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -26,7 +28,7 @@ import { Role } from './modules/role/role.entity';
       username: 'root',
       password: '123456',
       database: 'test',
-      entities: [User, Menu, Banner, Role],
+      entities: [User, Menu, Banner, Role, Project],
       synchronize: true,
     }),
     UsersModule,
@@ -34,6 +36,7 @@ import { Role } from './modules/role/role.entity';
     AuthModule,
     BannerModule,
     RoleModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],

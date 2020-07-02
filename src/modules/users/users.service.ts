@@ -21,8 +21,19 @@ export class UsersService {
       },
     });
   }
+
+  find(dto: CreateUserDto) {
+    return this.usersRepository.find({
+      where: {
+        username: Like(`%${dto.username || ''}%`),
+      },
+    });
+  }
   findAll(): Promise<User[]> {
     return this.usersRepository.find();
+  }
+  findByIds(ids): Promise<User[]> {
+    return this.usersRepository.findByIds(ids);
   }
 
   findOne(id: string): Promise<User> {
@@ -53,7 +64,6 @@ export class UsersService {
   }
 
   async update(id: string, createUserDto: CreateUserDto) {
-    console.log(createUserDto, 21);
     const user = await this.findOne(id);
     if (user) {
       if (createUserDto.roleId) {

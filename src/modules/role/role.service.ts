@@ -8,7 +8,10 @@ import { MenuService } from '../menu/menu.service';
 
 @Injectable()
 export class RoleService {
-  constructor(@InjectRepository(Role) private roleRep: Repository<Role>) {}
+  constructor(
+    @InjectRepository(Role) private roleRep: Repository<Role>,
+    private menuService: MenuService,
+  ) {}
 
   async findPage(pageDto: PageDto & CreateRoleDto): Promise<[Role[], Number]> {
     return this.roleRep.findAndCount({
@@ -28,7 +31,9 @@ export class RoleService {
   async update(id: string, createDto: CreateRoleDto) {
     const role = await this.roleRep.findOne(id);
     role.name = createDto.name;
-    role.menus = createDto.menus;
+    if (createDto.menuIds) {
+      role.menus = await this.menuService.findByIds(createDto.menuIds);
+    }
     return this.roleRep.save(role);
   }
 

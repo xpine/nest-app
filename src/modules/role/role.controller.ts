@@ -20,7 +20,7 @@ import { MenuService } from '../menu/menu.service';
 @UseGuards(AuthGuard('jwt'))
 @Controller({ path: '/role' })
 export class RoleController {
-  constructor(private service: RoleService, private menuService: MenuService) {}
+  constructor(private service: RoleService) {}
 
   @Get('/page')
   async getPage(@Query() pageDto: PageDto & CreateRoleDto, @Response() res) {
@@ -31,7 +31,7 @@ export class RoleController {
         data: roles,
         total,
         page: pageDto.page,
-        pageSize: pageDto.page,
+        pageSize: pageDto.pageSize,
       },
     });
   }
@@ -52,11 +52,6 @@ export class RoleController {
     @Param('id') id,
     @Response() res,
   ) {
-    if (createRoleDto.menuIds) {
-      createRoleDto.menus = await this.menuService.findByIds(
-        createRoleDto.menuIds,
-      );
-    }
     const role = await this.service.update(id, createRoleDto);
     res.status(HttpStatus.OK).json({
       code: ApiCode.SUCCESS,
