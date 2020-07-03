@@ -7,6 +7,7 @@ import {
   Param,
   Put,
   Body,
+  Request,
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -25,8 +26,10 @@ export class ProjectController {
   ) {}
 
   @Get('/all')
-  async getAllProjects(@Response() res) {
-    const projects = await this.projectService.find();
+  async getAllProjects(@Response() res, @Request() req) {
+    const { id } = req.user;
+
+    const projects = await this.projectService.getProjectsByUser(id);
     res.status(HttpStatus.OK).json({
       code: ApiCode.SUCCESS,
       data: projects,

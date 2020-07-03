@@ -27,6 +27,8 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/typeorm": "^7.0.0",
+    "@types/uuid": "^8.0.0",
+    "ali-oss": "^6.9.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "hbs": "^4.1.0",
@@ -38,7 +40,8 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "typeorm": "^0.2.25"
+    "typeorm": "^0.2.25",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^6.9.0",

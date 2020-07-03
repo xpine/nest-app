@@ -5,29 +5,28 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  OneToOne,
-  JoinColumn,
-  ManyToMany,
   ManyToOne,
-  JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 
 @Entity()
-export class Project {
+export class OssFile {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
-  @Column({
-    unique: true,
-    length: 20,
-  })
+  @Column()
   name: string;
 
-  @Column({
-    length: 20,
-  })
-  desc: string;
+  @Column()
+  size: string;
+
+  @Column()
+  url: string;
+
+  @ManyToOne(type => User)
+  @JoinColumn()
+  createdBy: User;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -61,14 +60,25 @@ export class Project {
     },
   })
   deleteTime: number;
+}
 
-  @ManyToOne(type => User)
-  @JoinColumn()
-  createdBy: User;
+@Entity()
+export class OssConfig {
+  @PrimaryGeneratedColumn()
+  id: string;
 
-  @ManyToMany(
-    type => User,
-    user => user.projects,
-  )
-  members: User[];
+  @Column()
+  accessKeyId: string;
+
+  @Column()
+  accessKeySecret: string;
+
+  @Column()
+  bucket: string;
+
+  @Column()
+  endpoint: string;
+
+  @Column()
+  timeout: string;
 }

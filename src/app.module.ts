@@ -19,6 +19,8 @@ import { RoleModule } from './modules/role/role.module';
 import { Role } from './modules/role/role.entity';
 import { ProjectModule } from './modules/project/project.module';
 import { Project } from './modules/project/project.entity';
+import { OssFile, OssConfig } from './modules/file/file.entity';
+import { OssFileModule } from './modules/file/file.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -28,7 +30,7 @@ import { Project } from './modules/project/project.entity';
       username: 'root',
       password: '123456',
       database: 'test',
-      entities: [User, Menu, Banner, Role, Project],
+      entities: [User, Menu, Banner, Role, Project, OssFile, OssConfig],
       synchronize: true,
     }),
     UsersModule,
@@ -37,6 +39,7 @@ import { Project } from './modules/project/project.entity';
     BannerModule,
     RoleModule,
     ProjectModule,
+    OssFileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

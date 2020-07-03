@@ -7,8 +7,11 @@ import {
   CreateDateColumn,
   JoinColumn,
   ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Role } from '../role/role.entity';
+import { Project } from '../project/project.entity';
 
 @Entity()
 export class User {
@@ -23,6 +26,7 @@ export class User {
 
   @Column()
   password: string;
+
   @CreateDateColumn({
     type: 'timestamp',
     transformer: {
@@ -59,4 +63,11 @@ export class User {
   @ManyToOne(type => Role)
   @JoinColumn()
   role: Role;
+
+  @ManyToMany(
+    type => Project,
+    project => project.members,
+  )
+  @JoinTable()
+  projects: Project[];
 }

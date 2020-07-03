@@ -11,12 +11,7 @@ import { MenuService } from '../menu/menu.service';
 import { Menu } from '../menu/menu.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Project]),
-    TypeOrmModule.forFeature([User]),
-    TypeOrmModule.forFeature([Role]),
-    TypeOrmModule.forFeature([Menu]),
-  ],
+  imports: [TypeOrmModule.forFeature([Project, User, Role, Menu])],
   exports: [ProjectService],
   providers: [ProjectService, UsersService, RoleService, MenuService],
   controllers: [ProjectController],

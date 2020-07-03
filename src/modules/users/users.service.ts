@@ -37,7 +37,9 @@ export class UsersService {
   }
 
   findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id, { relations: ['role'] });
+    return this.usersRepository.findOne(id, {
+      relations: ['role', 'projects'],
+    });
   }
 
   findPage(pageDto: PageDto & CreateUserDto): Promise<[User[], Number]> {

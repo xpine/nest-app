@@ -7,7 +7,7 @@ import { MenuService } from '../menu/menu.service';
 import { Menu } from '../menu/menu.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Role]), TypeOrmModule.forFeature([Menu])],
+  imports: [TypeOrmModule.forFeature([Role, Menu])],
   providers: [RoleService, MenuService],
   controllers: [RoleController],
   exports: [RoleService],
