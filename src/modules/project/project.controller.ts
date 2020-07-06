@@ -45,9 +45,10 @@ export class ProjectController {
     const project = await this.projectService.findById(id);
     if (updateDto.memberIds && updateDto.memberIds.length) {
       const users = await this.userService.findByIds(updateDto.memberIds);
-      console.log(users, 111, updateDto.memberIds);
       project.members = users;
     }
+    project.desc = updateDto.desc;
+    project.name = updateDto.name;
 
     res.status(HttpStatus.OK).json({
       code: ApiCode.SUCCESS,

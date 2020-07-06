@@ -21,6 +21,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { Project } from './modules/project/project.entity';
 import { OssFile, OssConfig } from './modules/file/file.entity';
 import { OssFileModule } from './modules/file/file.module';
+import { EventsGateway } from './modules/gateway/events.gateway';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -42,7 +43,7 @@ import { OssFileModule } from './modules/file/file.module';
     OssFileModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, EventsGateway],
 })
 export class AppModule {
   constructor(private connection: Connection) {}

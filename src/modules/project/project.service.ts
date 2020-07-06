@@ -25,6 +25,8 @@ export class ProjectService {
 
   async getProjectsByUser(id) {
     const user = await this.userService.findOne(id);
-    return user.projects;
+    const ids = user.projects.map(project => project.id);
+
+    return this.projectRep.findByIds(ids, { relations: ['createdBy'] });
   }
 }

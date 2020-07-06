@@ -29,6 +29,11 @@ export class Project {
   })
   desc: string;
 
+  @Column({
+    length: 20,
+  })
+  code: string;
+
   @CreateDateColumn({
     type: 'timestamp',
     transformer: {
